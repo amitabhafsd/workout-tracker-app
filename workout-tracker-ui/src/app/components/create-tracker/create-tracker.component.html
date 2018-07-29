@@ -1,0 +1,71 @@
+<form [formGroup]="myForm" (submit)="onSubmit()">
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p>
+                        Add Workout
+                    </p>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <p>
+                        Title:
+                    </p>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <input type="text" class="form-right-element form-control" formControlName="title"/>
+                    <span [hidden]="myForm.controls.title.valid || (myForm.controls.title.pristine && !submitted)">Please enter proper title.</span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <p>
+                        Note:
+                    </p>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <textarea rows="5" cols="22" class="form-right-element form-control" formControlName="note"></textarea>
+                    <span [hidden]="myForm.controls.note.valid || (myForm.controls.note.pristine && !submitted)">Please enter proper note.</span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <p>
+                        Calories Burnt Per Minute
+                    </p>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <button (click)="increaseCalories()">+</button>
+                    <input type="text" disabled class="form-right-element form-control" formControlName="caloriesburnt" [value]="caloriesBurnt"/>
+                    <button (click)="decreaseCalories()" [disabled]="caloriesBurnt == 0.0">-</button>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <p>
+                        Category
+                    </p>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                    <select class="form-control form-right-element" formControlName="category">
+                        <option>Category 1</option>
+                        <option>Category 2</option>
+                        <option>Category 3</option>
+                        <option>Category 4</option>
+                        <option>Category 5</option>
+                        <option>Category 6</option>
+                    </select>
+                    <span [hidden]="myForm.controls.category.valid || (myForm.controls.category.pristine && !submitted)">Please enter proper category.</span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button type="submit" class="btn btn-primary form-control">Add Workout</button>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+</form>
