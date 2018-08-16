@@ -1,0 +1,130 @@
+package com.cts.fsd.workout.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cts.fsd.workout.entity.Category;
+import com.cts.fsd.workout.entity.Workout;
+import com.cts.fsd.workout.mapper.ObjectMapper;
+import com.cts.fsd.workout.pojo.AllWorkoutsPOJO;
+import com.cts.fsd.workout.pojo.WorkoutPOJO;
+import com.cts.fsd.workout.repo.CategoryRepository;
+import com.cts.fsd.workout.repo.WorkoutRepository;
+import com.cts.fsd.workout.service.CategoryService;
+import com.cts.fsd.workout.service.WorkoutService;
+import com.google.gson.Gson;
+
+@RestController
+@RequestMapping("/workout")
+public class WorkoutTrackerController {
+	
+	@Autowired
+	protected ObjectMapper objectMapper;
+	
+	@Autowired
+	CategoryRepository categoryRepository;
+	
+	@Autowired
+	WorkoutRepository workoutRepository;
+	
+	@Autowired
+	WorkoutService workoutService;
+
+	@Autowired
+	CategoryService categoryService;
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<AllWorkoutsPOJO> listWorkouts() {
+		System.out.println("getting all the workouts from database...");
+		List<Workout> workoutsFromDB = workoutService.getAllWorkouts();
+		List<WorkoutPOJO> workoutList = new ArrayList<WorkoutPOJO>();
+		
+		if(workoutsFromDB != null) {
+			for(Workout workout : workoutsFromDB) {
+				WorkoutPOJO workoutPOJO = objectMapper.mapWorkoutEntityToPojo(workout);
+				workoutList.add(workoutPOJO);
+			}
+		}
+		
+		AllWorkoutsPOJO allWorkoutsPOJO = new AllWorkoutsPOJO();
+		allWorkoutsPOJO.setWorkoutResponse(workoutList);
+		
+		return new ResponseEntity<AllWorkoutsPOJO>(allWorkoutsPOJO , HttpStatus.OK);
+    }
+	
+	
+	
+	@RequestMapping(value = "/create/dump", method = RequestMethod.GET)
+	public ResponseEntity<String> createWorkoutDump() {
+		String allWorkoutsJsonString = "{\"workoutResponse\":[{\"workoutId\":\"1\",	\"categoryId\":\"1\",\"workoutTitle\":\"MorningRunfor5minutes\",\"workoutNote\":\"FastRun\",\"workoutCalories\":\"10\"},{\"workoutId\":\"2\",	\"categoryId\":\"2\",\"workoutTitle\":\"Boxingpracticefor10minutes\",\"workoutNote\":\"StaminaIncrease\",\"workoutCalories\":\"20\"},{\"workoutId\":\"3\",	\"categoryId\":\"3\",\"workoutTitle\":\"ChestandTricepworkoutfor10minutes\",\"workoutNote\":\"StaminaIncrease\u0026MuscleGain\",\"workoutCalories\":\"50\"},{\"workoutId\":\"4\",	\"categoryId\":4,\"workoutTitle\":\"Morningwalkfor10minutes\",\"workoutNote\":\"WarmUp\",\"workoutCalories\":\"10\"},{\"workoutId\":\"5\",	\"categoryId\":\"4\",\"workoutTitle\":\"Eveningwalkfor10minutes\",\"workoutNote\":\"CalorieBurn\",\"workoutCalories\":\"10\"}]}";
+		Gson gson = new Gson();
+		AllWorkoutsPOJO allWorkoutsPOJO = gson.fromJson(allWorkoutsJsonString , AllWorkoutsPOJO.class);
+		
+		System.out.println("creating data dump in db = " + allWorkoutsPOJO.toString());
+		List<Workout> workoutsEntityList = new ArrayList<Workout>();
+		
+		if(allWorkoutsPOJO != null 
+				&& allWorkoutsPOJO.getWorkoutResponse() != null 
+				&& !allWorkoutsPOJO.getWorkoutResponse().isEmpty()) {
+			
+			for(WorkoutPOJO workoutPOJO : allWorkoutsPOJO.getWorkoutResponse()) {
+				
+				Category categoryFromDB =  categoryService.getCategoryById(workoutPOJO.getCategoryId());
+				System.out.println("categoryFromDB = " + categoryFromDB.toString());
+				
+				Workout workout = objectMapper.mapWorkoutPojoToEntity(workoutPOJO);
+				if(workout != null ) {
+					workout.setCategory(categoryFromDB);
+				}
+				
+				workoutsEntityList.add(workout);
+				
+			}
+		}
+		
+		List<Workout> dbResponse = workoutService.createWorkout(workoutsEntityList);
+		
+		return new ResponseEntity<String>("Workouts Saved to Database..." + dbResponse , HttpStatus.OK);
+	}
+	
+	
+	
+	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<String> createWorkout(@RequestBody AllWorkoutsPOJO allWorkoutsPOJO) {
+		System.out.println("allWorkouts coming in request = " + allWorkoutsPOJO.toString());
+		
+		List<Workout> workoutsEntityList = new ArrayList<Workout>();
+		
+		if(allWorkoutsPOJO != null 
+				&& allWorkoutsPOJO.getWorkoutResponse() != null 
+				&& !allWorkoutsPOJO.getWorkoutResponse().isEmpty()) {
+			
+			for(WorkoutPOJO workoutPOJO : allWorkoutsPOJO.getWorkoutResponse()) {
+				
+				Category categoryFromDB =  categoryService.getCategoryById(workoutPOJO.getCategoryId());
+				System.out.println("categoryFromDB = " + categoryFromDB.toString());
+				
+				Workout workout = objectMapper.mapWorkoutPojoToEntity(workoutPOJO);
+				if(workout != null ) {
+					workout.setCategory(categoryFromDB);
+				}
+				
+				workoutsEntityList.add(workout);
+				
+			}
+		}
+		
+		List<Workout> dbResponse = workoutService.createWorkout(workoutsEntityList);
+		
+		return new ResponseEntity<String>("Workouts Saved to Database..." + dbResponse , HttpStatus.OK);
+	}
+	
+}
