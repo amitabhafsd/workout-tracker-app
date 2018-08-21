@@ -1,0 +1,236 @@
+{
+	"id": "c78240b1-ff74-476d-9363-b2573902b01f",
+	"name": "FSD_Workout",
+	"description": "",
+	"order": [
+		"2f2d4513-69b7-ea8d-7e1b-dace35a218e0",
+		"ff75452a-c11e-d029-9df8-a7c98f5a5d61",
+		"d2c5ac9c-ce10-97f9-a84d-860ff4bfac23",
+		"e28eecff-33f4-d056-d590-1c5f9bcec25d",
+		"b1edfb6f-ea55-74f7-e6fb-a1fb43651f27",
+		"131777d2-d13e-b720-75a9-5840655ac5b4",
+		"6aed14d0-8bdd-f021-d8bb-fe884a9e3451",
+		"fdb00223-bd14-c6bb-dc41-c3d098eb05bc"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1534648871348,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "131777d2-d13e-b720-75a9-5840655ac5b4",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{baseurl}}category/create",
+			"queryParams": [],
+			"preRequestScript": "// For Cloud Testing\n// var apiUrl = \"\";\n\n//For Local Machine Testing\nvar domain = \"localhost\";\nvar port = \"8080\";\nvar apiUrl = \"http://\"+domain+\":\"+port+\"/\";\n\n\npostman.setEnvironmentVariable(\"baseurl\", apiUrl);",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1534651266455,
+			"name": "category/create",
+			"description": "",
+			"collectionId": "c78240b1-ff74-476d-9363-b2573902b01f",
+			"responses": [],
+			"rawModeData": "[\r\n  {\r\n    \"categoryId\": 1,\r\n    \"categoryName\": \"Sprint\"\r\n  },\r\n  {\r\n    \"categoryId\": 2,\r\n    \"categoryName\": \"Boxing\"\r\n  },\r\n  {\r\n    \"categoryId\": 3,\r\n    \"categoryName\": \"Cardio\"\r\n  },\r\n  {\r\n    \"categoryId\": 4,\r\n    \"categoryName\": \"Slow Walk\"\r\n  },\r\n  {\r\n    \"categoryId\": 5,\r\n    \"categoryName\": \"Fast Walk\"\r\n  },\r\n  {\r\n    \"categoryId\": 6,\r\n    \"categoryName\": \"Jogging\"\r\n  }\r\n]"
+		},
+		{
+			"id": "2f2d4513-69b7-ea8d-7e1b-dace35a218e0",
+			"headers": "",
+			"headerData": [],
+			"url": "{{baseurl}}workout/create/dump",
+			"queryParams": [],
+			"preRequestScript": "// For Cloud Testing\n// var apiUrl = \"\";\n\n//For Local Machine Testing\nvar domain = \"localhost\";\nvar port = \"8080\";\nvar apiUrl = \"http://\"+domain+\":\"+port+\"/\";\n\n\npostman.setEnvironmentVariable(\"baseurl\", apiUrl);",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1534650946318,
+			"name": "workout/create/dump",
+			"description": "",
+			"collectionId": "c78240b1-ff74-476d-9363-b2573902b01f",
+			"responses": []
+		},
+		{
+			"id": "6aed14d0-8bdd-f021-d8bb-fe884a9e3451",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{baseurl}}category/edit/:categoryId",
+			"queryParams": [],
+			"preRequestScript": "// For Cloud Testing\n// var apiUrl = \"\";\n\n//For Local Machine Testing\nvar domain = \"localhost\";\nvar port = \"8080\";\nvar apiUrl = \"http://\"+domain+\":\"+port+\"/\";\n\n\npostman.setEnvironmentVariable(\"baseurl\", apiUrl);\n\nvar reqBody = JSON.parse(request.data)\nvar categoryId = reqBody.categoryId;\npostman.setEnvironmentVariable(\"categoryId\", categoryId);",
+			"pathVariables": {
+				"categoryId": "{{categoryId}}"
+			},
+			"pathVariableData": [
+				{
+					"key": "categoryId",
+					"value": "{{categoryId}}"
+				}
+			],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1534656400314,
+			"name": "category/edit/{id}",
+			"description": "",
+			"collectionId": "c78240b1-ff74-476d-9363-b2573902b01f",
+			"responses": [],
+			"rawModeData": "{\r\n    \"categoryId\": 1,\r\n    \"categoryName\": \"Sprint_updating\"\r\n}"
+		},
+		{
+			"id": "b1edfb6f-ea55-74f7-e6fb-a1fb43651f27",
+			"headers": "",
+			"headerData": [],
+			"url": "{{baseurl}}category/list",
+			"queryParams": [],
+			"preRequestScript": "// For Cloud Testing\n// var apiUrl = \"\";\n\n//For Local Machine Testing\nvar domain = \"localhost\";\nvar port = \"8080\";\nvar apiUrl = \"http://\"+domain+\":\"+port+\"/\";\n\n\npostman.setEnvironmentVariable(\"baseurl\", apiUrl);",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1534651204092,
+			"name": "category/list",
+			"description": "",
+			"collectionId": "c78240b1-ff74-476d-9363-b2573902b01f",
+			"responses": []
+		},
+		{
+			"id": "d2c5ac9c-ce10-97f9-a84d-860ff4bfac23",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{baseurl}}workout/create",
+			"queryParams": [],
+			"preRequestScript": "// For Cloud Testing\n// var apiUrl = \"\";\n\n//For Local Machine Testing\nvar domain = \"localhost\";\nvar port = \"8080\";\nvar apiUrl = \"http://\"+domain+\":\"+port+\"/\";\n\n\npostman.setEnvironmentVariable(\"baseurl\", apiUrl);",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1534651058478,
+			"name": "workout/create",
+			"description": "",
+			"collectionId": "c78240b1-ff74-476d-9363-b2573902b01f",
+			"responses": [],
+			"rawModeData": "{\r\n  \"workoutResponse\": [\r\n    {\r\n      \"workoutId\": \"1\",\r\n\t  \"categoryId\": \"1\",\r\n      \"workoutTitle\": \"Morning Run for 5 minutes\",\r\n      \"workoutNote\": \"Fast Run\",\r\n      \"workoutCalories\": \"10\"\r\n    },\r\n    {\r\n      \"workoutId\": \"2\",\r\n\t  \"categoryId\": \"2\",\r\n      \"workoutTitle\": \"Boxing practice for 10 minutes\",\r\n      \"workoutNote\": \"Stamina Increase\",\r\n      \"workoutCalories\": \"20\"\r\n    },\r\n    {\r\n      \"workoutId\": \"3\",\r\n\t  \"categoryId\": \"3\",\r\n      \"workoutTitle\": \"Chest and Tricep workout for 10 minutes\",\r\n      \"workoutNote\": \"Stamina Increase \\u0026 Muscle Gain\",\r\n      \"workoutCalories\": \"50\"\r\n    },\r\n    {\r\n      \"workoutId\": \"4\",\r\n\t  \"categoryId\": 4,\r\n      \"workoutTitle\": \"Morning walk for 10 minutes\",\r\n      \"workoutNote\": \"Warm Up\",\r\n      \"workoutCalories\": \"10\"\r\n    },\r\n    {\r\n      \"workoutId\": \"5\",\r\n\t  \"categoryId\": \"4\",\r\n      \"workoutTitle\": \"Evening walk for 10 minutes\",\r\n      \"workoutNote\": \"Calorie Burn\",\r\n      \"workoutCalories\": \"10\"\r\n    }\r\n  ]\r\n}"
+		},
+		{
+			"id": "e28eecff-33f4-d056-d590-1c5f9bcec25d",
+			"headers": "",
+			"headerData": [],
+			"url": "{{baseurl}}category/create/dump",
+			"queryParams": [],
+			"preRequestScript": "// For Cloud Testing\n// var apiUrl = \"\";\n\n//For Local Machine Testing\nvar domain = \"localhost\";\nvar port = \"8080\";\nvar apiUrl = \"http://\"+domain+\":\"+port+\"/\";\n\n\npostman.setEnvironmentVariable(\"baseurl\", apiUrl);",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1534651185216,
+			"name": "category/create/dump",
+			"description": "",
+			"collectionId": "c78240b1-ff74-476d-9363-b2573902b01f",
+			"responses": []
+		},
+		{
+			"id": "fdb00223-bd14-c6bb-dc41-c3d098eb05bc",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "{{baseurl}}category/delete/:categoryId",
+			"queryParams": [],
+			"preRequestScript": "// For Cloud Testing\n// var apiUrl = \"\";\n\n//For Local Machine Testing\nvar domain = \"localhost\";\nvar port = \"8080\";\nvar apiUrl = \"http://\"+domain+\":\"+port+\"/\";\n\n\npostman.setEnvironmentVariable(\"baseurl\", apiUrl);\n\nvar reqBody = JSON.parse(request.data)\nvar categoryId = reqBody.categoryId;\npostman.setEnvironmentVariable(\"categoryId\", categoryId);",
+			"pathVariables": {
+				"categoryId": "{{categoryId}}"
+			},
+			"pathVariableData": [
+				{
+					"key": "categoryId",
+					"value": "{{categoryId}}"
+				}
+			],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1534657277395,
+			"name": "category/delete/:categoryId",
+			"description": "",
+			"collectionId": "c78240b1-ff74-476d-9363-b2573902b01f",
+			"responses": [],
+			"rawModeData": "{\r\n    \"categoryId\": 1,\r\n    \"categoryName\": \"Sprint_updating\"\r\n}"
+		},
+		{
+			"id": "ff75452a-c11e-d029-9df8-a7c98f5a5d61",
+			"headers": "",
+			"headerData": [],
+			"url": "{{baseurl}}workout/list",
+			"queryParams": [],
+			"preRequestScript": "// For Cloud Testing\n// var apiUrl = \"\";\n\n//For Local Machine Testing\nvar domain = \"localhost\";\nvar port = \"8080\";\nvar apiUrl = \"http://\"+domain+\":\"+port+\"/\";\n\n\npostman.setEnvironmentVariable(\"baseurl\", apiUrl);",
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1534650989496,
+			"name": "workout/list",
+			"description": "",
+			"collectionId": "c78240b1-ff74-476d-9363-b2573902b01f",
+			"responses": []
+		}
+	]
+}

@@ -1,0 +1,335 @@
+{
+	"variables": [],
+	"info": {
+		"name": "FSD_Workout",
+		"_postman_id": "c78240b1-ff74-476d-9363-b2573902b01f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "workout/create/dump",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// For Cloud Testing",
+							"// var apiUrl = \"\";",
+							"",
+							"//For Local Machine Testing",
+							"var domain = \"localhost\";",
+							"var port = \"8080\";",
+							"var apiUrl = \"http://\"+domain+\":\"+port+\"/\";",
+							"",
+							"",
+							"postman.setEnvironmentVariable(\"baseurl\", apiUrl);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{baseurl}}workout/create/dump",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "workout/list",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// For Cloud Testing",
+							"// var apiUrl = \"\";",
+							"",
+							"//For Local Machine Testing",
+							"var domain = \"localhost\";",
+							"var port = \"8080\";",
+							"var apiUrl = \"http://\"+domain+\":\"+port+\"/\";",
+							"",
+							"",
+							"postman.setEnvironmentVariable(\"baseurl\", apiUrl);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{baseurl}}workout/list",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "workout/create",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// For Cloud Testing",
+							"// var apiUrl = \"\";",
+							"",
+							"//For Local Machine Testing",
+							"var domain = \"localhost\";",
+							"var port = \"8080\";",
+							"var apiUrl = \"http://\"+domain+\":\"+port+\"/\";",
+							"",
+							"",
+							"postman.setEnvironmentVariable(\"baseurl\", apiUrl);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{baseurl}}workout/create",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"workoutResponse\": [\r\n    {\r\n      \"workoutId\": \"1\",\r\n\t  \"categoryId\": \"1\",\r\n      \"workoutTitle\": \"Morning Run for 5 minutes\",\r\n      \"workoutNote\": \"Fast Run\",\r\n      \"workoutCalories\": \"10\"\r\n    },\r\n    {\r\n      \"workoutId\": \"2\",\r\n\t  \"categoryId\": \"2\",\r\n      \"workoutTitle\": \"Boxing practice for 10 minutes\",\r\n      \"workoutNote\": \"Stamina Increase\",\r\n      \"workoutCalories\": \"20\"\r\n    },\r\n    {\r\n      \"workoutId\": \"3\",\r\n\t  \"categoryId\": \"3\",\r\n      \"workoutTitle\": \"Chest and Tricep workout for 10 minutes\",\r\n      \"workoutNote\": \"Stamina Increase \\u0026 Muscle Gain\",\r\n      \"workoutCalories\": \"50\"\r\n    },\r\n    {\r\n      \"workoutId\": \"4\",\r\n\t  \"categoryId\": 4,\r\n      \"workoutTitle\": \"Morning walk for 10 minutes\",\r\n      \"workoutNote\": \"Warm Up\",\r\n      \"workoutCalories\": \"10\"\r\n    },\r\n    {\r\n      \"workoutId\": \"5\",\r\n\t  \"categoryId\": \"4\",\r\n      \"workoutTitle\": \"Evening walk for 10 minutes\",\r\n      \"workoutNote\": \"Calorie Burn\",\r\n      \"workoutCalories\": \"10\"\r\n    }\r\n  ]\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "category/create/dump",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// For Cloud Testing",
+							"// var apiUrl = \"\";",
+							"",
+							"//For Local Machine Testing",
+							"var domain = \"localhost\";",
+							"var port = \"8080\";",
+							"var apiUrl = \"http://\"+domain+\":\"+port+\"/\";",
+							"",
+							"",
+							"postman.setEnvironmentVariable(\"baseurl\", apiUrl);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{baseurl}}category/create/dump",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "category/list",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// For Cloud Testing",
+							"// var apiUrl = \"\";",
+							"",
+							"//For Local Machine Testing",
+							"var domain = \"localhost\";",
+							"var port = \"8080\";",
+							"var apiUrl = \"http://\"+domain+\":\"+port+\"/\";",
+							"",
+							"",
+							"postman.setEnvironmentVariable(\"baseurl\", apiUrl);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{baseurl}}category/list",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "category/create",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// For Cloud Testing",
+							"// var apiUrl = \"\";",
+							"",
+							"//For Local Machine Testing",
+							"var domain = \"localhost\";",
+							"var port = \"8080\";",
+							"var apiUrl = \"http://\"+domain+\":\"+port+\"/\";",
+							"",
+							"",
+							"postman.setEnvironmentVariable(\"baseurl\", apiUrl);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{baseurl}}category/create",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"categoryId\": 1,\r\n    \"categoryName\": \"Sprint\"\r\n  },\r\n  {\r\n    \"categoryId\": 2,\r\n    \"categoryName\": \"Boxing\"\r\n  },\r\n  {\r\n    \"categoryId\": 3,\r\n    \"categoryName\": \"Cardio\"\r\n  },\r\n  {\r\n    \"categoryId\": 4,\r\n    \"categoryName\": \"Slow Walk\"\r\n  },\r\n  {\r\n    \"categoryId\": 5,\r\n    \"categoryName\": \"Fast Walk\"\r\n  },\r\n  {\r\n    \"categoryId\": 6,\r\n    \"categoryName\": \"Jogging\"\r\n  }\r\n]"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "category/edit/{id}",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// For Cloud Testing",
+							"// var apiUrl = \"\";",
+							"",
+							"//For Local Machine Testing",
+							"var domain = \"localhost\";",
+							"var port = \"8080\";",
+							"var apiUrl = \"http://\"+domain+\":\"+port+\"/\";",
+							"",
+							"",
+							"postman.setEnvironmentVariable(\"baseurl\", apiUrl);",
+							"",
+							"var reqBody = JSON.parse(request.data)",
+							"var categoryId = reqBody.categoryId;",
+							"postman.setEnvironmentVariable(\"categoryId\", categoryId);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "{{baseurl}}category/edit/:categoryId",
+					"host": [
+						"{{baseurl}}category"
+					],
+					"path": [
+						"edit",
+						":categoryId"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "categoryId",
+							"value": "{{categoryId}}"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryId\": 1,\r\n    \"categoryName\": \"Sprint_updating\"\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "category/delete/:categoryId",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// For Cloud Testing",
+							"// var apiUrl = \"\";",
+							"",
+							"//For Local Machine Testing",
+							"var domain = \"localhost\";",
+							"var port = \"8080\";",
+							"var apiUrl = \"http://\"+domain+\":\"+port+\"/\";",
+							"",
+							"",
+							"postman.setEnvironmentVariable(\"baseurl\", apiUrl);",
+							"",
+							"var reqBody = JSON.parse(request.data)",
+							"var categoryId = reqBody.categoryId;",
+							"postman.setEnvironmentVariable(\"categoryId\", categoryId);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": {
+					"raw": "{{baseurl}}category/delete/:categoryId",
+					"host": [
+						"{{baseurl}}category"
+					],
+					"path": [
+						"delete",
+						":categoryId"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "categoryId",
+							"value": "{{categoryId}}"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryId\": 1,\r\n    \"categoryName\": \"Sprint_updating\"\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

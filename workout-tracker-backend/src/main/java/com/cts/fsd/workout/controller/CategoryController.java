@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cts.fsd.workout.entity.Category;
-import com.cts.fsd.workout.exception.ResourceNotFoundException;
 import com.cts.fsd.workout.mapper.ObjectMapper;
 import com.cts.fsd.workout.pojo.CategoryPOJO;
 import com.cts.fsd.workout.repo.CategoryRepository;
@@ -23,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 
 @RestController
 @RequestMapping("/category")
+@CrossOrigin("*")
 public class CategoryController {
 	
 	@Autowired
@@ -33,27 +34,6 @@ public class CategoryController {
 
 	@Autowired
 	CategoryService categoryService;
-	
-	
-	
-	
-	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<CategoryPOJO>> listWorkouts() {
-		System.out.println("getting all the categories from database...");
-		List<Category> categoriesFromDB = categoryService.getAllCategories();
-		List<CategoryPOJO> categoriesList = new ArrayList<CategoryPOJO>();
-		
-		if(categoriesFromDB != null) {
-			for(Category category : categoriesFromDB) {
-				CategoryPOJO categoryPOJO = objectMapper.mapCategoryEntityToPojo(category);
-				categoriesList.add(categoryPOJO);
-			}
-		}
-		
-		return new ResponseEntity<List<CategoryPOJO>>(categoriesList , HttpStatus.OK);
-    }
-	
-	
 	
 	
 	@RequestMapping(value = "/create/dump", method = RequestMethod.GET)
@@ -78,6 +58,23 @@ public class CategoryController {
 		
 		return new ResponseEntity<String>("Categories Saved to Database..." + dbResponse , HttpStatus.OK);
 	}
+
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<List<CategoryPOJO>> listWorkouts() {
+		System.out.println("getting all the categories from database...");
+		List<Category> categoriesFromDB = categoryService.getAllCategories();
+		List<CategoryPOJO> categoriesList = new ArrayList<CategoryPOJO>();
+		
+		if(categoriesFromDB != null) {
+			for(Category category : categoriesFromDB) {
+				CategoryPOJO categoryPOJO = objectMapper.mapCategoryEntityToPojo(category);
+				categoriesList.add(categoryPOJO);
+			}
+		}
+		
+		return new ResponseEntity<List<CategoryPOJO>>(categoriesList , HttpStatus.OK);
+    }
 	
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = "application/json")
@@ -102,24 +99,31 @@ public class CategoryController {
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.PUT, consumes = "application/json")
 	public ResponseEntity<String> updateCategory( @PathVariable(value = "id") int categoryId ,
-			@RequestBody CategoryPOJO categoryPOJO) {
+			@RequestBody CategoryPOJO newCategoryPOJO) {
 		
-		Category categoryFromDB =  categoryService.getCategoryById(categoryId);
-		System.out.println("Updating categoryFromDB = " + categoryFromDB.toString());
-
-		categoryFromDB.setCategoryName(categoryPOJO.getCategoryName());
-		Category dbResponse = categoryRepository.save(categoryFromDB);
-		return new ResponseEntity<String>("Category Updated in Database..." + dbResponse , HttpStatus.OK);
+		Category dbResponse = null;
+		
+		if(categoryId == newCategoryPOJO.getCategoryId()) {
+			dbResponse = categoryService.editCategoryById(categoryId , newCategoryPOJO);
+		}
+		
+		if(dbResponse != null) {
+			return new ResponseEntity<String>("Category Updated in Database..." + dbResponse , HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Category NOT Updated in Database..."  + dbResponse , HttpStatus.OK);
+		}
 	}
 	
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> updateCategory( @PathVariable(value = "id") int categoryId ) {
-		
-		Category categoryFromDB =  categoryService.getCategoryById(categoryId);
-		System.out.println("Deleting categoryFromDB = " + categoryFromDB.toString());
 
-		categoryService.removeCategoryById(categoryId);
-		return new ResponseEntity<String>("Category Deleted from from database..." , HttpStatus.OK);
+		boolean dbResponse = categoryService.removeCategoryById(categoryId);
+		
+		if(dbResponse) {
+			return new ResponseEntity<String>("Category Deleted from database..." , HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Category Not Deleted from database..." , HttpStatus.OK);
+		}
 	}
 }
