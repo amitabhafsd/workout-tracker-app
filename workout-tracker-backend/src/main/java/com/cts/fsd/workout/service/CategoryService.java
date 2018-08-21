@@ -36,11 +36,13 @@ public class CategoryService {
 			categoryFromDB = categoryRepository.findById(Long.valueOf(categoryId)).get();
 			System.out.println("getCategoryById successfully returned Categpry from DB :: " + categoryFromDB.toString());
 		} catch (NoSuchElementException e) {
+			categoryFromDB = null;
 			System.out.println("getCategoryById NOT successfull...\nNoSuchElementException encountered... ResourceNotFoundException thrown" + e);
 			throw new ResourceNotFoundException("Category" , "categoryId" , categoryId);
 		} catch (Exception e ) {
+			categoryFromDB = null;
 			System.out.println("Exception encountered..." + e);
-			throw new ResourceNotFoundException("Category" , "categoryId" , categoryId);
+//			throw new ResourceNotFoundException("Category" , "categoryId" , categoryId);
 		}
 		return categoryFromDB;
 //		return categoryRepository.findById(Long.valueOf(categoryId)).orElseThrow(() -> new ResourceNotFoundException("Category" , "categoryId" , categoryId));
@@ -56,14 +58,19 @@ public class CategoryService {
 			
 			categoryFromDB =  categoryRepository.save(categoryFromDB);
 			editResponse = "Category ID("+categoryId+") updated, " + categoryFromDB.toString();
+		} catch(ResourceNotFoundException e ) {
+			System.out.println("ResourceNotFoundException encountered..." + e);
+			editResponse = "Things are not updated as record does not exist... ";
+			categoryFromDB = null;
 		} catch(Exception e ) {
 			System.out.println("Exception encountered..." + e);
-			editResponse = "Things are not updated due to exception... ";
+			editResponse = "Things are not updated due to Exception... ";
 			categoryFromDB = null;
 		}
 		System.out.println("After Update :: " + editResponse);
 		return categoryFromDB;
 	}
+	
 	
 	public boolean removeCategoryById(int categoryId){
 		String deleteResponse = "";
@@ -76,9 +83,14 @@ public class CategoryService {
 			categoryRepository.deleteCategoryById(Long.valueOf(categoryFromDB.getCategoryId()));
 			deleteResponse = "Category ID("+categoryId+") Deleted, Record No More exists,";
 			returnResponse = true;
+		} catch (ResourceNotFoundException e ) {
+			System.out.println("ResourceNotFoundException encountered..." + e);
+			deleteResponse = "Things are not deleted as record does not exist... ";
+			categoryFromDB = null;
+			returnResponse = false;
 		} catch (Exception e ) {
 			System.out.println("Exception encountered..." + e);
-			deleteResponse = "Things are not deleted due to exception... ";
+			deleteResponse = "Things are not deleted due to Exception... ";
 			categoryFromDB = null;
 			returnResponse = false;
 		}

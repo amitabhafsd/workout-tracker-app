@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,26 +44,6 @@ public class WorkoutTrackerController {
 	@Autowired
 	CategoryService categoryService;
 	
-	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<AllWorkoutsPOJO> listWorkouts() {
-		System.out.println("getting all the workouts from database...");
-		List<Workout> workoutsFromDB = workoutService.getAllWorkouts();
-		List<WorkoutPOJO> workoutList = new ArrayList<WorkoutPOJO>();
-		
-		if(workoutsFromDB != null) {
-			for(Workout workout : workoutsFromDB) {
-				WorkoutPOJO workoutPOJO = objectMapper.mapWorkoutEntityToPojo(workout);
-				workoutList.add(workoutPOJO);
-			}
-		}
-		
-		AllWorkoutsPOJO allWorkoutsPOJO = new AllWorkoutsPOJO();
-		allWorkoutsPOJO.setWorkoutResponse(workoutList);
-		
-		return new ResponseEntity<AllWorkoutsPOJO>(allWorkoutsPOJO , HttpStatus.OK);
-    }
-	
-	
 	
 	@RequestMapping(value = "/create/dump", method = RequestMethod.GET)
 	public ResponseEntity<String> createWorkoutDump() {
@@ -98,6 +79,24 @@ public class WorkoutTrackerController {
 	}
 	
 	
+	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<AllWorkoutsPOJO> listWorkouts() {
+		System.out.println("getting all the workouts from database...");
+		List<Workout> workoutsFromDB = workoutService.getAllWorkouts();
+		List<WorkoutPOJO> workoutList = new ArrayList<WorkoutPOJO>();
+		
+		if(workoutsFromDB != null) {
+			for(Workout workout : workoutsFromDB) {
+				WorkoutPOJO workoutPOJO = objectMapper.mapWorkoutEntityToPojo(workout);
+				workoutList.add(workoutPOJO);
+			}
+		}
+		
+		AllWorkoutsPOJO allWorkoutsPOJO = new AllWorkoutsPOJO();
+		allWorkoutsPOJO.setWorkoutResponse(workoutList);
+		
+		return new ResponseEntity<AllWorkoutsPOJO>(allWorkoutsPOJO , HttpStatus.OK);
+    }
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<String> createWorkout(@RequestBody AllWorkoutsPOJO allWorkoutsPOJO) {
@@ -125,6 +124,30 @@ public class WorkoutTrackerController {
 		}
 		
 		List<Workout> dbResponse = workoutService.createWorkout(workoutsEntityList);
+		
+		return new ResponseEntity<String>("Workouts Saved to Database..." + dbResponse , HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.PUT, consumes = "application/json")
+	public ResponseEntity<String> updateWorkout(@PathVariable(value = "id") int workoutId , 
+												@RequestBody WorkoutPOJO newWorkoutPOJO) {
+		System.out.println("Workout to be updated which is coming in request = " + newWorkoutPOJO.toString());
+		Workout dbResponse = null;
+		
+		if (workoutId == newWorkoutPOJO.getWorkoutId()) {
+//			dbResponse = 
+			// write logic in service layer and repo to update values.
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		return new ResponseEntity<String>("Workouts Saved to Database..." + dbResponse , HttpStatus.OK);
 	}

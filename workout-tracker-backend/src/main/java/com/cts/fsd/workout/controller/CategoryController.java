@@ -100,6 +100,7 @@ public class CategoryController {
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.PUT, consumes = "application/json")
 	public ResponseEntity<String> updateCategory( @PathVariable(value = "id") int categoryId ,
 			@RequestBody CategoryPOJO newCategoryPOJO) {
+		System.out.println("Category to be updated which is coming in request = " + newCategoryPOJO.toString());
 		
 		Category dbResponse = null;
 		
@@ -108,9 +109,9 @@ public class CategoryController {
 		}
 		
 		if(dbResponse != null) {
-			return new ResponseEntity<String>("Category Updated in Database..." + dbResponse , HttpStatus.OK);
+			return new ResponseEntity<String>("Category[category id = "+categoryId+"] Updated in Database..." + dbResponse , HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>("Category NOT Updated in Database..."  + dbResponse , HttpStatus.OK);
+			return new ResponseEntity<String>("Category[category id = "+categoryId+"] NOT Updated in Database as it does not exist..."  + dbResponse , HttpStatus.OK);
 		}
 	}
 	
@@ -121,9 +122,9 @@ public class CategoryController {
 		boolean dbResponse = categoryService.removeCategoryById(categoryId);
 		
 		if(dbResponse) {
-			return new ResponseEntity<String>("Category Deleted from database..." , HttpStatus.OK);
+			return new ResponseEntity<String>("Category[category id = "+categoryId+"] Deleted from database..." , HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>("Category Not Deleted from database..." , HttpStatus.OK);
+			return new ResponseEntity<String>("Category[category id = "+categoryId+"] Not Deleted from database as it does not exist..." , HttpStatus.OK);
 		}
 	}
 }
